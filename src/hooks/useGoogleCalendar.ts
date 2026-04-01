@@ -34,6 +34,30 @@ interface CachedData {
   filter: string;
 }
 
+function normalizeEvent(event: Partial<CalendarEvent> | null | undefined, index: number): CalendarEvent {
+  return {
+    id: typeof event?.id === "string" && event.id ? event.id : `evento-${index}`,
+    titulo: typeof event?.titulo === "string" && event.titulo ? event.titulo : "Evento",
+    desc: typeof event?.desc === "string" ? event.desc : "",
+    local: typeof event?.local === "string" ? event.local : "",
+    dia: typeof event?.dia === "string" ? event.dia : "",
+    mes: typeof event?.mes === "string" ? event.mes : "",
+    diaSemana: typeof event?.diaSemana === "string" ? event.diaSemana : "",
+    hora: typeof event?.hora === "string" ? event.hora : "",
+    horaFim: typeof event?.horaFim === "string" ? event.horaFim : "",
+    dataISO: typeof event?.dataISO === "string" ? event.dataISO : "",
+    dataFimISO: typeof event?.dataFimISO === "string" ? event.dataFimISO : "",
+    passado: Boolean(event?.passado),
+    gcal: typeof event?.gcal === "string" && event.gcal ? event.gcal : "#",
+    mapsUrl: typeof event?.mapsUrl === "string" && event.mapsUrl ? event.mapsUrl : "#",
+  };
+}
+
+function normalizeEvents(events: unknown): CalendarEvent[] {
+  if (!Array.isArray(events)) return [];
+  return events.map((event, index) => normalizeEvent(event as Partial<CalendarEvent>, index));
+}
+
 function getCached(filter: string): CalendarEvent[] | null {
   try {
     const raw = localStorage.getItem(CACHE_KEY);
@@ -41,7 +65,7 @@ function getCached(filter: string): CalendarEvent[] | null {
     const data: CachedData = JSON.parse(raw);
     if (data.filter !== filter) return null;
     // Return cached even if stale — we'll refresh in background
-    return data.events;
+    return normalizeEvents(data.events);
   } catch {
     return null;
   }
@@ -49,7 +73,7 @@ function getCached(filter: string): CalendarEvent[] | null {
 
 function setCache(events: CalendarEvent[], filter: string) {
   try {
-    const data: CachedData = { events, timestamp: Date.now(), filter };
+    const data: CachedData = { events: normalizeEvents(events), timestamp: Date.now(), filter };
     localStorage.setItem(CACHE_KEY, JSON.stringify(data));
   } catch {
     // localStorage full or unavailable
@@ -70,7 +94,7 @@ function isCacheStale(filter: string): boolean {
 
 export function useGoogleCalendar(options: UseGoogleCalendarOptions = {}) {
   const filterKey = options.filter || "all";
-  const cached = getCached(filterKey);
+  const cached = normalizeEvents(getCached(filterKey));
 
   const [events, setEvents] = useState<CalendarEvent[]>(cached || []);
   const [loading, setLoading] = useState(!cached);
@@ -88,7 +112,15 @@ export function useGoogleCalendar(options: UseGoogleCalendarOptions = {}) {
     const fetchEvents = async () => {
       try {
         // Only show spinner if we have no cached data
-        if (!cached) setLoading(true);
+        if (!cached.length) setLoading(true);
+
+        if (!CLOUD_PROJECT_ID || !CLOUD_ANON_KEY) {
+          if (!cached.length) {
+            setEvents([]);
+            setError("Agenda temporariamente indisponível");
+          }
+          return;
+        }
 
         const params = new URLSearchParams();
         if (options.filter) params.set("filter", options.filter);
@@ -103,18 +135,20 @@ export function useGoogleCalendar(options: UseGoogleCalendarOptions = {}) {
           },
         });
 
-        const data = await res.json();
+        const data = await res.json().catch(() => null);
+        const normalizedEvents = normalizeEvents(data?.events);
 
-        if (data.success) {
-          setEvents(data.events);
-          setCache(data.events, filterKey);
+        if (res.ok && data?.success) {
+          setEvents(normalizedEvents);
+          setCache(normalizedEvents, filterKey);
+          setError(null);
         } else {
           // Only set error if we have no cached data to show
-          if (!cached) setError(data.error || "Erro ao carregar eventos");
+          if (!cached.length) setError(data?.error || "Erro ao carregar eventos");
         }
       } catch (err) {
         console.error("Erro ao buscar eventos:", err);
-        if (!cached) setError("Não foi possível carregar os eventos");
+        if (!cached.length) setError("Não foi possível carregar os eventos");
       } finally {
         setLoading(false);
       }

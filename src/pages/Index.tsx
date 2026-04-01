@@ -63,7 +63,8 @@ const Index = () => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [heroImgLoaded, setHeroImgLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { events: proximosEventos, loading: eventosLoading } = useGoogleCalendar({ filter: "proximos", limit: 3 });
+  const { events: proximosEventos, loading: eventosLoading, error: eventosError } = useGoogleCalendar({ filter: "proximos", limit: 3 });
+  const eventos = Array.isArray(proximosEventos) ? proximosEventos : [];
 
   const openLightbox = useCallback((item: HomeGalleryItem) => {
     setImgLoaded(false);
@@ -259,11 +260,11 @@ const Index = () => {
               <Loader2 className="h-5 w-5 animate-spin text-primary" />
               <span className="ml-2 text-sm text-muted-foreground">Carregando eventos...</span>
             </div>
-          ) : proximosEventos.length === 0 ? (
-            <p className="text-center text-muted-foreground py-10">Nenhum evento próximo no momento.</p>
+          ) : eventos.length === 0 ? (
+            <p className="text-center text-muted-foreground py-10">{eventosError || "Nenhum evento próximo no momento."}</p>
           ) : (
             <div className="mt-10 space-y-4 max-w-3xl mx-auto">
-              {proximosEventos.map((e, i) => (
+              {eventos.map((e, i) => (
                 <ScrollReveal key={e.id} delay={i * 0.1}>
                   <div className="flex gap-4 rounded-2xl border bg-card p-5 transition-shadow hover:shadow-soft">
                     <div className="flex-shrink-0 flex flex-col items-center justify-center h-16 w-16 rounded-xl bg-primary text-primary-foreground">
