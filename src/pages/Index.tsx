@@ -194,7 +194,7 @@ const Index = () => {
             <div className="flex justify-center order-first md:order-none mb-6 md:mb-0">
               <div className="relative">
                 {/* Skeleton placeholder – shows instantly while image loads */}
-                <div className="h-56 w-56 sm:h-72 sm:w-72 md:h-96 md:w-96 rounded-full border-4 border-primary overflow-hidden shadow-2xl ring-pulse relative">
+                <div className="h-64 w-64 sm:h-80 sm:w-80 md:h-[28rem] md:w-[28rem] rounded-full border-4 border-primary overflow-hidden shadow-2xl ring-pulse relative">
                   {!heroImgLoaded && (
                     <div className="absolute inset-0 bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 animate-pulse" />
                   )}
