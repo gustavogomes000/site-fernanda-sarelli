@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGaleriaConfig } from "@/hooks/useGaleriaConfig";
-import logoSarelli from "@/assets/logo-sarelli.png";
+import logoHeader from "@/assets/logo-sarelli-header.png";
 
 const baseNavItems = [
   { label: "Sobre", path: "/sobre" },
@@ -33,7 +33,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-background border-b border-border/50">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logoSarelli} alt="Dra. Fernanda Sarelli" className="h-10 w-auto object-contain" />
+          <img src={logoHeader} alt="Dra. Fernanda Sarelli" className="h-10 w-auto object-contain" />
         </Link>
 
         {/* Social icons + Nav desktop */}
