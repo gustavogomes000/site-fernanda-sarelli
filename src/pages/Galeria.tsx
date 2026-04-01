@@ -73,6 +73,7 @@ const SkeletonCard = () => (
 );
 
 const GaleriaPublica = () => {
+  const [searchParams] = useSearchParams();
   const [albuns, setAlbuns] = useState<Album[]>([]);
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [selectedAlbum, setSelectedAlbum] = useState<string | null>(null);
@@ -83,6 +84,7 @@ const GaleriaPublica = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoStartTime = useRef<number>(0);
   const trackedPlayRef = useRef<string | null>(null);
+  const autoOpenedRef = useRef(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
