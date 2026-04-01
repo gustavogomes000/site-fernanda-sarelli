@@ -27,7 +27,7 @@ const Footer = () => (
           <h4 className="text-xs font-semibold uppercase tracking-wider text-primary-foreground mb-4">Contato</h4>
           <div className="space-y-1 text-sm">
             <p>Goiânia — GO, Brasil</p>
-            <p>contato@fernandasarelli.com.br</p>
+            
             <p>(62) 99323-7397</p>
           </div>
           <div className="flex items-center gap-3 mt-4">
