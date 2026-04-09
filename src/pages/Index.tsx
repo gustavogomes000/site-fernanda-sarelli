@@ -129,16 +129,16 @@ const Index = () => {
   return (
     <Layout>
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-pink-200">
+        <div className="absolute inset-0 bg-primary">
           <video
             src={heroBgVideo.url}
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover mix-blend-multiply opacity-70"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-pink-200/60 via-transparent to-pink-300/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-transparent to-primary/40" />
         </div>
         <div className="container relative z-10 py-10 sm:py-14 md:py-24">
           <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
