@@ -65,6 +65,19 @@ const Index = () => {
   const [lightbox, setLightbox] = useState<HomeGalleryItem | null>(null);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [heroImgLoaded, setHeroImgLoaded] = useState(false);
+  // DEV: controles da bandeira com persistência
+  const savedFlag = JSON.parse(localStorage.getItem('flagPos') || '{"x":0,"y":0,"z":180,"ox":38,"oy":52}');
+  const [flagX, setFlagX] = useState(savedFlag.x);
+  const [flagY, setFlagY] = useState(savedFlag.y);
+  const [flagZ, setFlagZ] = useState(savedFlag.z);
+  const [flagOX, setFlagOX] = useState(savedFlag.ox);
+  const [flagOY, setFlagOY] = useState(savedFlag.oy);
+  const [flagSaved, setFlagSaved] = useState(false);
+  const saveFlag = () => {
+    localStorage.setItem('flagPos', JSON.stringify({ x: flagX, y: flagY, z: flagZ, ox: flagOX, oy: flagOY }));
+    setFlagSaved(true);
+    setTimeout(() => setFlagSaved(false), 2000);
+  };
   const videoRef = useRef<HTMLVideoElement>(null);
   const { events: proximosEventos, loading: eventosLoading, error: eventosError } = useGoogleCalendar({ filter: "proximos", limit: 3 });
   const eventos = Array.isArray(proximosEventos) ? proximosEventos : [];
