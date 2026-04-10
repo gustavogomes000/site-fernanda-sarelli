@@ -137,8 +137,10 @@ const Index = () => {
                 </span>
               </ScrollReveal>
 
+              {/* Mobile: show NOVO logo here | Desktop: show Sarelli logo */}
               <ScrollReveal delay={0.1}>
-                <img src={logoSarelli} alt="Dra. Fernanda Sarelli - Chama a Doutora" className="mt-5 max-w-xs sm:max-w-sm md:max-w-md w-full" />
+                <img src={logoNovo} alt="Partido NOVO - A gente respeita Goiás" className="mt-5 h-12 sm:h-14 w-auto object-contain drop-shadow-md md:hidden" />
+                <img src={logoSarelli} alt="Dra. Fernanda Sarelli - Chama a Doutora" className="mt-5 max-w-xs sm:max-w-sm md:max-w-md w-full hidden md:block" />
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
