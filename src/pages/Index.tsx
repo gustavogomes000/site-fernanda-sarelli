@@ -139,7 +139,6 @@ const Index = () => {
             className="absolute inset-0 w-full h-full object-cover"
             style={{ objectPosition: 'center 40%' }}
           />
-          />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-transparent to-primary/40" />
         </div>
         <div className="container relative z-10 py-10 sm:py-14 md:py-24">
