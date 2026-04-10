@@ -217,7 +217,6 @@ const Index = () => {
                 <img src={logoNovo} alt="Partido NOVO - A gente respeita Goiás" className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-md" />
               </ScrollReveal>
             </div>
-            </div>
           </div>
         </div>
         <WaveDivider />
