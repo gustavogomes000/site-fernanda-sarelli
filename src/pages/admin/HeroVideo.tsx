@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Monitor, Smartphone, Tablet, Save, RotateCcw, Move, ZoomIn, ZoomOut } from "lucide-react";
-import { supabase } from "@/lib/supabaseDb";
+import { supabase as supabaseExt } from "@/lib/supabaseDb";
+import { supabase } from "@/integrations/supabase/client";
 import { useAdmin } from "@/hooks/useAdmin";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
