@@ -66,6 +66,19 @@ interface HomeGalleryItem {
 
 const Index = () => {
   const isMobile = useIsMobile();
+  const heroPositions = useHeroVideoPosition();
+  const [windowWidth, setWindowWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1280);
+
+  useEffect(() => {
+    const onResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const currentBreakpoint: "mobile" | "tablet" | "desktop" =
+    windowWidth < MOBILE_BP ? "mobile" : windowWidth < TABLET_BP ? "tablet" : "desktop";
+  const heroVideoSrc = currentBreakpoint === "mobile" ? heroBgVideoMobile.url : heroBgVideo.url;
+  const heroVideoStyle = getVideoStyle(heroPositions[currentBreakpoint]);
   const [galeriaItems, setGaleriaItems] = useState<HomeGalleryItem[]>([]);
   const [galeriaAtiva, setGaleriaAtiva] = useState(false);
   const [galeriaFiltro, setGaleriaFiltro] = useState<"todos" | "foto" | "video" | "eventos">("todos");
