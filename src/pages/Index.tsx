@@ -137,8 +137,10 @@ const Index = () => {
                 </span>
               </ScrollReveal>
 
+              {/* Mobile: show NOVO logo here | Desktop: show Sarelli logo */}
               <ScrollReveal delay={0.1}>
-                <img src={logoSarelli} alt="Dra. Fernanda Sarelli - Chama a Doutora" className="mt-5 max-w-xs sm:max-w-sm md:max-w-md w-full" />
+                <img src={logoNovo} alt="Partido NOVO - A gente respeita Goiás" className="mt-5 h-12 sm:h-14 w-auto object-contain drop-shadow-md md:hidden" />
+                <img src={logoSarelli} alt="Dra. Fernanda Sarelli - Chama a Doutora" className="mt-5 max-w-xs sm:max-w-sm md:max-w-md w-full hidden md:block" />
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
@@ -213,8 +215,10 @@ const Index = () => {
                   />
                 </div>
               </div>
+              {/* Mobile: show Sarelli logo here | Desktop: show NOVO logo */}
               <ScrollReveal delay={0.15}>
-                <img src={logoNovo} alt="Partido NOVO - A gente respeita Goiás" className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-md" />
+                <img src={logoSarelli} alt="Dra. Fernanda Sarelli - Chama a Doutora" className="max-w-[200px] sm:max-w-[240px] w-full object-contain md:hidden" />
+                <img src={logoNovo} alt="Partido NOVO - A gente respeita Goiás" className="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-md hidden md:block" />
               </ScrollReveal>
             </div>
           </div>
