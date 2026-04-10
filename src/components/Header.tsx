@@ -4,6 +4,7 @@ import { Menu, X, Instagram, Facebook, MessageCircle } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useGaleriaConfig } from "@/hooks/useGaleriaConfig";
 import logoHeader from "@/assets/logo-sarelli-header.png";
+import logoNovo from "@/assets/logo-novo-partido.png";
 
 const baseNavItems = [
   { label: "Sobre", path: "/sobre" },
@@ -32,8 +33,10 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border/50">
       <div className="container flex h-20 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-3">
           <img src={logoHeader} alt="Dra. Fernanda Sarelli" className="h-20 w-auto object-contain" />
+          <div className="hidden lg:block h-12 w-px bg-border/60" />
+          <img src={logoNovo} alt="Partido NOVO" className="hidden lg:block h-10 w-auto object-contain" />
         </Link>
 
         {/* Social icons + Nav desktop */}
