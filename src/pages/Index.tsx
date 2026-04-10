@@ -136,14 +136,7 @@ const Index = () => {
             loop
             muted
             playsInline
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              minWidth: '100%',
-              minHeight: '100%',
-              transform: 'translate(calc(-50% + 28px), calc(-50% + 37px)) scale(1.89)',
-            }}
+            className="absolute inset-0 w-full h-full object-cover scale-[1.8] origin-[40%_55%]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-transparent to-primary/40" />
         </div>
